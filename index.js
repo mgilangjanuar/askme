@@ -46,6 +46,8 @@ klasifikasi.build({
               tag = '.detail-body-wrapper'
             } else if (url.includes('cnnindonesia.com')) {
               tag = '#detikdetailtext'
+            } else if (url.includes('techcrunch.com')) {
+              tag = '.article-content'
             }
             let dom = new JSDOM(data.data).window.document.querySelector(tag)
             if (!dom) {
