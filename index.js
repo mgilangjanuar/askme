@@ -67,10 +67,14 @@ klasifikasi.build({
             })).then(data => {
               console.log(data)
               data = data.filter(Boolean).reduce((res, dt) => [...res, ...dt], []).filter(Boolean).sort((a, b) => b.score - a.score)
-              for (let i = 0; i < 3; i++) {
-                if (data[i]) {
-                  const text = `@${tweet.user.screen_name} ${i+1}. ${data[i].answer} (score: ${data[i].score.toFixed(4)})\n\n${getSentence(data[i].answer, data[i].context)}`
-                  bot.post('statuses/update', { status: text.slice(0, 277) + `${text.length > 280 ? '...' : ''}`, in_reply_to_status_id: tweet.id_str })
+              if (!data[0]) {
+                bot.post('statuses/update', { status: `@${tweet.user.screen_name} informasi tidak ditemukan`, in_reply_to_status_id: tweet.id_str })
+              } else {
+                for (let i = 0; i < 3; i++) {
+                  if (data[i]) {
+                    const text = `@${tweet.user.screen_name} ${i+1}. ${data[i].answer} (score: ${data[i].score.toFixed(4)})\n\n${getSentence(data[i].answer, data[i].context)}`
+                    bot.post('statuses/update', { status: text.slice(0, 277) + `${text.length > 280 ? '...' : ''}`, in_reply_to_status_id: tweet.id_str })
+                  }
                 }
               }
             })
@@ -80,4 +84,3 @@ klasifikasi.build({
     }
   })
 })
-
