@@ -48,6 +48,8 @@ klasifikasi.build({
               tag = '#detikdetailtext'
             } else if (url.includes('techcrunch.com')) {
               tag = '.article-content'
+            } else if (url.includes('viva.co.id')) {
+              tag = '#article-detail-content'
             }
             let dom = new JSDOM(data.data).window.document.querySelector(tag)
             if (!dom) {
