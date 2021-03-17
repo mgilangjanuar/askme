@@ -23,7 +23,7 @@ klasifikasi.build({
 
   const getSentence = (word, text)  => {
     const sentenceArray = text.replace(/([.?!])\s*(?=[A-Z])/g, "$1|").split("|")
-    return sentenceArray.filter(sentence => sentence.includes(word)).map(sentence => sentence.replace(word, `*${word}*`)).map(sentence => `${sentence}`)
+    return sentenceArray.filter(sentence => sentence.includes(word)).map(sentence => sentence.replace(word, `*${word}*`)).map(sentence => sentence.replace(/\s/gi, ' '))
   }
 
   bot.stream('statuses/filter', { track: '@askme_bot' }).on('tweet', tweet => {
